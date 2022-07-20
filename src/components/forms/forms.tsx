@@ -6,39 +6,139 @@ type propsType = {
     state: stateType
 }
 
-export const Forms: React.FC<propsType> = ({state}) => {
+export const Forms: React.FC<propsType> = ({ state }) => {
     const [firstFormNumber, setFirstFormNumber] = useState<number>(0)
     const [secondFormNumber, setSecondFormNumber] = useState<number>(0)
     const [firstFormSelect, setFirstFormSelect] = useState<string>('BTC')
     const [secondFormSelect, setSecondFormSelect] = useState<string>('USD')
 
-    const changeFirstNumber = (newNumber: number) => {
+    const changeFirstNumber = (newNumber: number, select: string) => {
         setFirstFormNumber(newNumber)
-        if (firstFormSelect === secondFormSelect) return setSecondFormNumber(newNumber)
-        if (firstFormSelect === 'EUR') {
-            if (secondFormSelect === 'UAN') return setSecondFormNumber(newNumber * state.EUR.buy)
-            if (secondFormSelect === 'USD') return setSecondFormNumber(newNumber * state.EUR.buy / state.USD.buy)
-            if (secondFormSelect === 'BTC') return setSecondFormNumber(newNumber * state.EUR.buy / state.USD.buy / state.BTC.buy )
-        } else if (firstFormSelect === 'BTC') {
-            if (secondFormSelect === 'USD') return setSecondFormNumber (newNumber * state.BTC.buy)
-            if (secondFormSelect === 'UAN') return setSecondFormNumber (newNumber * state.BTC.buy * state.USD.buy)
-            if (secondFormSelect === 'EUR') return setSecondFormNumber (newNumber * state.BTC.buy * state.USD.buy / state.EUR.buy)
-        } else if (firstFormSelect === 'USD') {
-            if (secondFormSelect === 'UAN') return setSecondFormNumber (newNumber * state.USD.buy)
-            if (secondFormSelect === 'EUR') return setSecondFormNumber (newNumber * state.USD.buy / state.EUR.buy)
-            if (secondFormSelect === 'BTC') return setSecondFormNumber (newNumber / state.BTC.buy)
-        } else if (firstFormSelect === 'UAN') {
-            if (secondFormSelect === 'USD') return setSecondFormNumber (newNumber / state.USD.buy)
-            if (secondFormSelect === 'EUR') return setSecondFormNumber (newNumber / state.EUR.buy)
-            if (secondFormSelect === 'BTC') return setSecondFormNumber (newNumber / state.USD.buy / state.BTC.buy)
+        setFirstFormSelect(select)
+        if (select === secondFormSelect) return setSecondFormNumber(newNumber)
+        switch (select) {
+            case 'EUR':
+                switch (secondFormSelect) {
+                    case ('UAN'):
+                        setSecondFormNumber(newNumber * state.EUR.buy)
+                        break
+                    case ('USD'):
+                        setSecondFormNumber(newNumber * state.EUR.buy / state.USD.buy)
+                        break
+                    case ('BTC'):
+                        setSecondFormNumber(newNumber * state.EUR.buy / state.USD.buy / state.BTC.buy)
+                        break
+                }
+                break;
+            case ('BTC'):
+                switch (secondFormSelect) {
+                    case ('USD'):
+                        setSecondFormNumber(newNumber * state.BTC.buy)
+                        break
+                    case ('UAN'):
+                        setSecondFormNumber(newNumber * state.BTC.buy * state.USD.buy)
+                        break
+                    case ('EUR'):
+                        setSecondFormNumber(newNumber * state.BTC.buy * state.USD.buy / state.EUR.buy)
+                        break
+                }
+                break
+            case ('USD'):
+                switch (secondFormSelect) {
+                    case ('UAN'):
+                        setSecondFormNumber(newNumber * state.USD.buy)
+                        break
+                    case ('EUR'):
+                        setSecondFormNumber(newNumber * state.USD.buy / state.EUR.buy)
+                        break
+                    case ('BTC'):
+                        setSecondFormNumber(newNumber / state.BTC.buy)
+                        break
+                }
+                break
+            case ('UAN'):
+                switch (secondFormSelect) {
+                    case ('USD'):
+                        setSecondFormNumber(newNumber / state.USD.buy)
+                        break
+                    case ('EUR'):
+                        setSecondFormNumber(newNumber / state.EUR.buy)
+                        break
+                    case ('BTC'):
+                        setSecondFormNumber(newNumber / state.USD.buy / state.BTC.buy)
+                        break
+                }
+                break
         }
     }
 
-    const changeSecondNumber = (newNumber: number) => {
+    switch (secondFormSelect) {
+        case ('USD'):
+            break
+        case ('UAN'):
+            break
+        case ('EUR'):
+            break
+    }
+
+
+    const changeSecondNumber = (newNumber: number, select: string) => {
         setSecondFormNumber(newNumber)
-        if (firstFormSelect === secondFormSelect) return setFirstFormNumber(newNumber)
-        if (secondFormSelect === 'EUR') {
-            if (firstFormSelect === 'UAN') return setFirstFormNumber(newNumber / state.EUR.buy)
+        setSecondFormSelect(select)
+        if (firstFormSelect === select) return setFirstFormNumber(newNumber)
+        switch (select) {
+            case 'EUR':
+                switch (firstFormSelect) {
+                    case ('UAN'):
+                        setFirstFormNumber(newNumber * state.EUR.buy)
+                        break
+                    case ('USD'):
+                        setFirstFormNumber(newNumber * state.EUR.buy / state.USD.buy)
+                        break
+                    case ('BTC'):
+                        setFirstFormNumber(newNumber * state.EUR.buy / state.USD.buy / state.BTC.buy)
+                        break
+                }
+                break;
+            case ('BTC'):
+                switch (firstFormSelect) {
+                    case ('USD'):
+                        setFirstFormNumber(newNumber * state.BTC.buy)
+                        break
+                    case ('UAN'):
+                        setFirstFormNumber(newNumber * state.BTC.buy * state.USD.buy)
+                        break
+                    case ('EUR'):
+                        setFirstFormNumber(newNumber * state.BTC.buy * state.USD.buy / state.EUR.buy)
+                        break
+                }
+                break
+            case ('USD'):
+                switch (firstFormSelect) {
+                    case ('UAN'):
+                        setFirstFormNumber(newNumber * state.USD.buy)
+                        break
+                    case ('EUR'):
+                        setFirstFormNumber(newNumber * state.USD.buy / state.EUR.buy)
+                        break
+                    case ('BTC'):
+                        setFirstFormNumber(newNumber / state.BTC.buy)
+                        break
+                }
+                break
+            case ('UAN'):
+                switch (firstFormSelect) {
+                    case ('USD'):
+                        setFirstFormNumber(newNumber / state.USD.buy)
+                        break
+                    case ('EUR'):
+                        setFirstFormNumber(newNumber / state.EUR.buy)
+                        break
+                    case ('BTC'):
+                        setFirstFormNumber(newNumber / state.USD.buy / state.BTC.buy)
+                        break
+                }
+                break
         }
     }
     return (
@@ -47,7 +147,7 @@ export const Forms: React.FC<propsType> = ({state}) => {
                 <Form inputValue={firstFormNumber} selectValue={firstFormSelect} changeNumber={changeFirstNumber} />
             </div>
             <div>
-                <Form inputValue={secondFormNumber} selectValue={secondFormSelect} changeNumber={changeSecondNumber}/>
+                <Form inputValue={secondFormNumber} selectValue={secondFormSelect} changeNumber={changeSecondNumber} />
             </div>
         </div>
     )
