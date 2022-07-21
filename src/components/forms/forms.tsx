@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import { stateType } from '../../App'
 import { Form } from './form'
+import s from './forms.module.css'
 
 type propsType = {
     state: stateType
@@ -72,16 +73,6 @@ export const Forms: React.FC<propsType> = ({ state }) => {
         }
     }
 
-    switch (secondFormSelect) {
-        case ('USD'):
-            break
-        case ('UAN'):
-            break
-        case ('EUR'):
-            break
-    }
-
-
     const changeSecondNumber = (newNumber: number, select: string) => {
         setSecondFormNumber(newNumber)
         setSecondFormSelect(select)
@@ -142,7 +133,7 @@ export const Forms: React.FC<propsType> = ({ state }) => {
         }
     }
     return (
-        <div>
+        <div className={s.forms}>
             <div>
                 <Form inputValue={firstFormNumber} selectValue={firstFormSelect} changeNumber={changeFirstNumber} />
             </div>

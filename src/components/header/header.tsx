@@ -1,5 +1,5 @@
-import axios from 'axios'
-import React, { useEffect, useState } from 'react'
+import React from 'react'
+import s from './header.module.css'
 import { stateType } from '../../App'
 
 type propsType = {
@@ -9,7 +9,7 @@ type propsType = {
 export const Header: React.FC<propsType> = ({state}) => {
 
     return (
-        <div>
+        <div className={s.header}>
             <div>
                 USD: {`${Math.floor(state.USD.buy * 100) / 100}/${Math.floor(state.USD.sale * 100) / 100}`}
             </div>

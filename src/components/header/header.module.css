@@ -1,0 +1,9 @@
+.header {
+    background-color: black;
+    color: aliceblue;
+    display: flex;
+    justify-content: space-around;
+    padding: 40px;
+    font-size: 28px;
+    font-weight: 600;
+}

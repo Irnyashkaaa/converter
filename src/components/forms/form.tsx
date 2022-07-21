@@ -1,4 +1,5 @@
 import React from 'react'
+import s from './form.module.css'
 
 type propsType = {
     inputValue: number
@@ -14,9 +15,9 @@ export const Form: React.FC<propsType> = ({ inputValue, selectValue, changeNumbe
     }
 
     return (
-        <form>
-            <input type="number" value={inputValue} onChange={changeLocalState} ref={newNumberElement} />
-            <select onChange={changeLocalState} value={selectValue} name="" id="" ref={newSelectElement}>
+        <form className={s.form}>
+            <input className={s.formInput} type="number" value={inputValue} onChange={changeLocalState} ref={newNumberElement} />
+            <select className={s.formSelect} onChange={changeLocalState} value={selectValue} name="" id="" ref={newSelectElement}>
                 <option value="BTC">BTC</option>
                 <option value="UAN">UAN</option>
                 <option value="EUR">EUR</option>
