@@ -1,9 +1,10 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
+import React from 'react'
 import './App.css';
 import { Header } from './components/header/header';
 import { Forms } from './components/forms/forms';
 import axios from 'axios';
-
+import { useAPI } from './hooks/useAPI';
 type currencyType = {
   base_ccy: string,
   buy: number,
@@ -18,19 +19,31 @@ export type stateType = {
 
 const App = () => {
 
-  const [state, setState] = useState<stateType>({
-    USD: { base_ccy: 'usd', sale: 0, buy: 0 },
-    EUR: { base_ccy: 'eur', sale: 0, buy: 0 },
-    BTC: { base_ccy: 'btc', sale: 0, buy: 0 }
-  })
+  const initCurr: currencyType = {
+    base_ccy: '', 
+    buy: 0, 
+    sale: 0,
+  }
+  const data = useAPI(fetchTodos)
+  const state: stateType = {
+    USD: initCurr,
+    EUR: initCurr,
+    BTC: initCurr
+  }
 
-  useEffect(() => {
-    axios.get(`https://api.privatbank.ua/p24api/pubinfo?json&exchange&coursid=5`)
-      .then(res => {
-        setState({ USD: res.data[0], EUR: res.data[1], BTC: res.data[2] });
-      })
-  }, [])
+  
 
+  if (data[0]) {
+    state.BTC = data[0][2]
+    state.EUR = data[0][1]
+    state.USD = data[0][0]
+  }
+  
+  function fetchTodos() {
+    return axios.get(`https://api.privatbank.ua/p24api/pubinfo?json&exchange&coursid=5`)
+  }
+
+  
 
   return (
     <div className="App">
