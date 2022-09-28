@@ -1,17 +1,18 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import s from './form.module.css'
 
 type propsType = {
     inputValue: number
     selectValue: string
-    changeNumber: (number: number, select: string) => void
+    changeNumberOrSelect: (number: number, select: string) => void
 }
-export const Form: React.FC<propsType> = ({ inputValue, selectValue, changeNumber }) => {
+export const Form: React.FC<propsType> = ({ inputValue, selectValue, changeNumberOrSelect }) => {
+    
     let newNumberElement = React.useRef<any>(-1);
     const newSelectElement = React.useRef<any>('UAN')
 
     const changeLocalState = () => {
-        if (newNumberElement.current.value >= 0) changeNumber(newNumberElement.current.value, newSelectElement.current.value)
+        if (newNumberElement.current.value >= 0) changeNumberOrSelect(newNumberElement.current.value, newSelectElement.current.value)
     }
 
     return (
